@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TriFuel Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+<div id="config-warning">
+  ⚠️ Edit <code>dashboard/js/config.js</code> and fill in your Supabase URL, anon key, and user UUID before using the dashboard.
+</div>
+
+<header>
+  <h1>Tri<span>Fuel</span></h1>
+  <span style="color:var(--muted);font-size:.8rem">Training &amp; Fueling Dashboard</span>
+</header>
+
+<main>
+
+  <!-- Training Load -->
+  <div class="card full-width">
+    <h2>Training Load — Last 90 Days</h2>
+    <div id="load-chart-container">
+      <canvas id="load-chart"></canvas>
+    </div>
+    <div class="load-legend">
+      <span class="legend-ctl">CTL (Fitness)</span>
+      <span class="legend-atl">ATL (Fatigue)</span>
+      <span class="legend-tsb">Form (TSB)</span>
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <span class="label">CTL</span>
+        <span class="value neutral" id="stat-ctl"><div class="spinner"></div></span>
+      </div>
+      <div class="stat">
+        <span class="label">ATL</span>
+        <span class="value neutral" id="stat-atl">—</span>
+      </div>
+      <div class="stat">
+        <span class="label">Form</span>
+        <span class="value neutral" id="stat-tsb">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Race -->
+  <div class="card">
+    <h2>Next Race</h2>
+    <div id="race-card-body"><div class="spinner"></div></div>
+  </div>
+
+  <!-- Fueling Planner -->
+  <div class="card">
+    <h2>Fueling Planner</h2>
+    <div class="planner-form" id="fueling-form">
+
+      <label>Sport
+        <select id="plan-sport">
+          <option value="run">Run</option>
+          <option value="bike">Bike</option>
+          <option value="swim">Swim</option>
+          <option value="brick">Brick (bike + run)</option>
+          <option value="other">Other</option>
+        </select>
+      </label>
+
+      <label>Race?
+        <select id="plan-race">
+          <option value="none">No — training session</option>
+          <optgroup label="Triathlon">
+            <option value="sprint">Sprint triathlon</option>
+            <option value="olympic">Olympic triathlon</option>
+            <option value="70.3">70.3 (half iron)</option>
+            <option value="140.6">140.6 (full iron)</option>
+          </optgroup>
+          <optgroup label="Running">
+            <option value="5k">5K</option>
+            <option value="10k">10K</option>
+            <option value="13.1">Half marathon (13.1)</option>
+            <option value="26.2">Marathon (26.2)</option>
+          </optgroup>
+        </select>
+      </label>
+
+      <label>Duration
+        <div class="range-row">
+          <input type="range" id="plan-dur" min="20" max="360" step="5" value="90" />
+          <span class="range-val" id="dur-val">90 min</span>
+        </div>
+      </label>
+
+      <label>Intensity (% of threshold HR)
+        <div class="range-row">
+          <input type="range" id="plan-intensity" min="65" max="105" step="1" value="80" />
+          <span class="range-val" id="intensity-val">80%</span>
+        </div>
+      </label>
+
+    </div>
+    <div id="fueling-output"></div>
+  </div>
+
+  <!-- Recent Workouts -->
+  <div class="card full-width">
+    <h2>Recent Workouts</h2>
+    <table class="workouts-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Sport</th>
+          <th>Duration</th>
+          <th>Distance</th>
+          <th>TSS</th>
+        </tr>
+      </thead>
+      <tbody id="workouts-tbody">
+        <tr><td colspan="5"><div class="spinner"></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<!-- CDN dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+
+<!-- Config (fill in before use) -->
+<script src="js/config.js"></script>
+
+<!-- App -->
+<script src="js/app.js"></script>
+
+</body>
+</html>
