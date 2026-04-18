@@ -1,0 +1,7 @@
+{
+  "name": "trifuel",
+  "outputDirectory": "dashboard",
+  "buildCommand": null,
+  "installCommand": null,
+  "framework": null
+}
